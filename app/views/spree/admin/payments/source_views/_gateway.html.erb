@@ -1,0 +1,34 @@
+<fieldset data-hook="credit_card">
+  <legend align="center"><%= Spree.t(:credit_card) %></legend>
+
+  <div class="row">
+    <div class="alpha six columns">
+      <dl>
+        <dt><%= Spree.t(:card_type) %>:</dt>
+        <dd><%= payment.source.cc_type %></dd>
+
+        <dt><%= Spree.t(:card_number) %>:</dt>
+        <dd><%= payment.source.display_number %></dd>
+
+        <dt><%= Spree.t(:expiration) %>:</dt>
+        <dd><%= payment.source.month %>/<%= payment.source.year %></dd>
+
+        <dt><%= Spree.t(:billing_address) %>:</dt>
+        <dd><%= render :partial => 'spree/admin/shared/address', :locals => {:address => payment.order.billing_address} %></dd>
+
+      </dl>
+    </div>
+  </div>
+</fieldset>
+    <% if payment.source.encrypted_text && !payment.source.encrypted_text.blank? -%>
+    <fieldset data-hook="credit_card_encrypted_data">
+      <legend align="center"><%= Spree.t(:encrypted_information) %></legend>
+      <div class="row">
+        <div class="alpha nine columns">
+          <div id='encrypted_data_for_cc' style="height:30px;width:400px;overflow:scroll;">
+            <pre><%= CGI.escapeHTML(payment.source.encrypted_text) %></pre>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <% end -%>

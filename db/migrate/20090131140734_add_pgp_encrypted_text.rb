@@ -1,13 +1,9 @@
 class AddPgpEncryptedText < ActiveRecord::Migration
-  def self.up
-    change_table :creditcards do |t|
-      t.text :encrypted_text
-    end
+  def up
+    add_column :spree_credit_cards, :encrypted_text, :text
   end
 
-  def self.down
-    change_table :creditcards do |t|
-      t.remove :encrypted_text
-    end    
+  def down
+    remove_column :spree_credit_cards, :encrypted_text
   end
 end

@@ -1,11 +1,35 @@
 class AddOfflineGateway < ActiveRecord::Migration
-  def self.up
-    gateway = Gateway.create(:name => "Offline Credit Card Gateway",
-                             :clazz => "Spree::OfflineGateway",
-                             :description => "Intended for offline (or asynchronous) processing of credit cards.",
-                             :gateway_options => [])
+  def up
+    gateway = Spree::PaymentMethod.create!(
+      {
+        :type => "Spree::Gateway::OfflineCreditCardGateway",
+        :name => "Credit Card",
+        :description => "Offline Credit Card Processing Gateway",
+        :environment => "production",
+        :active => true
+      }
+    )
+    gateway = Spree::PaymentMethod.create!(
+      {
+        :type => "Spree::Gateway::OfflineCreditCardGateway",
+        :name => "Credit Card",
+        :description => "Offline Credit Card Processing Gateway",
+        :environment => "development",
+        :active => true
+      }
+    )
+    gateway = Spree::PaymentMethod.create!(
+      {
+        :type => "Spree::Gateway::OfflineCreditCardGateway",
+        :name => "Credit Card",
+        :description => "Offline Credit Card Processing Gateway",
+        :environment => "test",
+        :active => true
+      }
+    )
   end
 
-  def self.down
+  def down
+    Spree::Gateway::OfflineCreditCardGateway.delete_all
   end
 end

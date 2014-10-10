@@ -1,0 +1,23 @@
+<%= render :partial => 'spree/admin/shared/order_tabs', :locals => {:current => "Credit Card Payments"} %>
+
+<table class="admin-report">
+  <tr>
+    <th><%= t('cc_number') %></th>
+    <th><%= t('type') %></th>
+    <th><%= t('expiration') %></th>
+    <th><%= t('name') %></th>   
+    <th><%= t('action') %></th>    
+  </tr>
+  <% @credit_card_payments.each do |cc_payment| %>
+  <% debugger %>
+    <tr>
+			<td><%= cc_payment.source.display_number %></td>
+			<td><%= cc_payment.source.cc_type.titleize %></td>
+			<td><%= "#{cc_payment.source.month}/#{cc_payment.source.year}" %></td>
+			<td><%= "#{cc_payment.source.first_name} #{cc_payment.source.last_name}" %></td>
+			<td>
+			  <%#= link_to t('show'), admin_order_creditcard_payment_url(@order, cc_payment.source) %>
+			</td>
+    </tr>
+  <% end %>
+</table>
